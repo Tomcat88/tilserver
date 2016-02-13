@@ -1,0 +1,18 @@
+<html>
+<body>
+<h3>Thomas Tils:</h3>
+<div>
+    {{#tils}}
+        <div>
+            <p>{{timestamp}}</p>
+            <p>{{content}}</p>
+        </div>
+    {{/tils}}
+    {{^tils}}
+        <div>
+            No tils available!
+        </div>
+    {{/tils}}
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+group 'it.introini.tilserver'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.h2database:h2:1.4.191'
+        classpath 'org.flywaydb:flyway-gradle-plugin:3.2.1'
+    }
+}
+apply plugin: 'java'
+apply plugin: 'org.flywaydb.flyway'
+apply plugin: 'application'
+
+mainClassName = 'it.introini.tilserver.app.Application'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'com.sparkjava:spark-core:2.3'
+    compile 'com.sparkjava:spark-template-mustache:2.3'
+    compile 'com.h2database:h2:1.4.191'
+    compile 'com.javaslang:javaslang:2.0.0-RC4'
+    compile 'com.squareup.dagger:dagger:1.2.2'
+    compile 'com.squareup.dagger:dagger-compiler:1.2.2'
+}
+
+
+flyway {
+    url = 'jdbc:h2:./src/main/resources/db/files/tildb'
+}
