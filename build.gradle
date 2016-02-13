@@ -26,6 +26,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'com.sparkjava:spark-core:2.3'
     compile 'com.sparkjava:spark-template-mustache:2.3'
+    compile 'org.flywaydb:flyway-core:3.2.1'
     compile 'com.h2database:h2:1.4.191'
     compile 'com.javaslang:javaslang:2.0.0-RC4'
     compile 'com.squareup.dagger:dagger:1.2.2'
@@ -34,5 +35,5 @@ dependencies {
 
 
 flyway {
-    url = 'jdbc:h2:./src/main/resources/db/files/tildb'
+    url = 'jdbc:h2:./resources/db/files/tildb'
 }

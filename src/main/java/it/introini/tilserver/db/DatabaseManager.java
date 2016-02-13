@@ -1,6 +1,7 @@
 package it.introini.tilserver.db;
 
 import javaslang.control.Try;
+import org.flywaydb.core.Flyway;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,7 +19,7 @@ public class DatabaseManager {
 
     static Logger log = Logger.getLogger(DatabaseManager.class.getName());
 
-    public static final String DB_URL = "jdbc:h2:./src/main/resources/db/files/tildb";
+    public static final String DB_URL = "jdbc:h2:./resources/db/files/tildb";
 
     private final Connection connection;
 
@@ -26,6 +27,12 @@ public class DatabaseManager {
         this.connection = Try.of(() -> Class.forName("org.h2.Driver"))
                              .mapTry(c -> DriverManager.getConnection(DB_URL))
                              .getOrElseThrow((Function<Throwable, RuntimeException>) RuntimeException::new);
+    }
+
+    public void migrate(){
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(DB_URL,null,null);
+        flyway.migrate();
     }
 
     public PreparedStatement sql(String sql){
