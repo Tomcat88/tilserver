@@ -37,11 +37,12 @@ public class TilManager {
 
     public Try<Til> insert(Instant timestamp, String content){
         PreparedStatement statement = databaseManager.sql("insert into til(datetime,content) values(?,?)");
-        return Try.run(() -> {
+        return Try.of(() -> {
             statement.setTimestamp(1, Timestamp.from(timestamp));
             statement.setString(2,content);
             statement.execute();
-        }).map(v -> Til.of(-1,timestamp,content));
+            return statement.getGeneratedKeys();
+        }).mapTry(rs -> Til.of(rs.getLong(1),timestamp,content));
     }
 
 }

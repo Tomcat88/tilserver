@@ -32,7 +32,7 @@ public class RootHandler implements TemplateViewRoute{
         Try<Collection<Til>> ttils = tilManager.all();
         if (ttils.isFailure()) {
             ttils.getCause().printStackTrace();
-            return ViewUtils.e("error while loading tils!");
+            return ViewUtils.e("error while loading tils!",Routes.rootTuple._1);
         }else {
             Collection<Til> tils = ttils.get();
 

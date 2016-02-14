@@ -19,8 +19,9 @@ public class ViewUtils {
         return new ModelAndView(model,template);
     }
 
-    public static ModelAndView e(String error){
-        return new ModelAndView(ImmutableMap.of("error",error), Routes.errView);
+    public static ModelAndView e(String error,String backLink){
+        return new ModelAndView(ImmutableMap.of("error",error,
+                                                "back_link",backLink), Routes.errView);
 
     }
 }

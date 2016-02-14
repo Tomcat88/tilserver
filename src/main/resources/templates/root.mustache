@@ -7,6 +7,8 @@
     {{#tils}}
         <div class="til">
             <p>
+                <span>#{{id}}</span>
+                -
                 <b>
                     {{#format}}
                         {{timestamp}}
@@ -17,7 +19,7 @@
         </div>
     {{/tils}}
     {{^tils}}
-        <div>
+        <div class="til">
             No tils available!
         </div>
     {{/tils}}

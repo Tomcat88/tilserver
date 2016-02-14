@@ -52,13 +52,13 @@ public class NewHandler implements TemplateViewRoute{
                              .headOption()
                              .filter(c -> !c.isEmpty());
 
-        if(content.isEmpty()) return ViewUtils.e("content is mandatory.");
+        if(content.isEmpty()) return ViewUtils.e("content is mandatory.",Routes.newTuple._1);
 
         return tilManager.insert(Instant.now(), content.get())
                   .map(til -> ViewUtils.v(Routes.newTuple._2))
                   .getOrElseGet(t ->{
                       t.printStackTrace();
-                      return ViewUtils.e(Utils.stackTraceToString(t));
+                      return ViewUtils.e(Utils.stackTraceToString(t),Routes.newTuple._1);
                   });
     }
 

@@ -36,7 +36,7 @@ public class DatabaseManager {
     }
 
     public PreparedStatement sql(String sql){
-        return Try.of(() -> connection.prepareStatement(sql)).getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
+        return Try.of(() -> connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS)).getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
     }
 
     public <T>Collection<T> map(ResultSet resultSet,Function<ResultSet,Try<T>> mapper) throws Throwable {
