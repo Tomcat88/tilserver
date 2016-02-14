@@ -41,8 +41,10 @@ public class TilManager {
             statement.setTimestamp(1, Timestamp.from(timestamp));
             statement.setString(2,content);
             statement.execute();
-            return statement.getGeneratedKeys();
-        }).mapTry(rs -> Til.of(rs.getLong(1),timestamp,content));
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys.first();
+            return generatedKeys.getLong(1);
+        }).mapTry(id -> Til.of(id,timestamp,content));
     }
 
     public Try<Til> til(long id){
