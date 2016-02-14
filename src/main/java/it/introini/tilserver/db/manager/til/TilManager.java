@@ -56,4 +56,12 @@ public class TilManager {
 
     }
 
+    public Try<Void> delete(long id){
+        PreparedStatement statement = databaseManager.sql("delete from til where id = ?");
+        return Try.run(() -> {
+            statement.setLong(1,id);
+            statement.execute();
+        });
+    }
+
 }
