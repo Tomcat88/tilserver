@@ -6,6 +6,7 @@ import spark.ModelAndView;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Created by thomas on 13/02/16.
@@ -15,13 +16,19 @@ public class ViewUtils {
         return new ModelAndView(Collections.emptyMap(),template);
     }
 
-    public static ModelAndView mv(Map<String,Object> model,String template){
-        return new ModelAndView(model,template);
+    public static ModelAndView mv(ImmutableMap<String,Object> model,String template){
+        return new ModelAndView(addHelper(model),template);
     }
 
     public static ModelAndView e(String error,String backLink){
         return new ModelAndView(ImmutableMap.of("error",error,
                                                 "back_link",backLink), Routes.errView);
+    }
 
+    private static Map<String ,Object> addHelper(ImmutableMap<String ,Object> model){
+        ImmutableMap.Builder<String , Object> builder = ImmutableMap.builder();
+        builder.putAll(model)
+               .put("format",(Function<String ,Object>)Utils::reformatDateTime);
+        return builder.build();
     }
 }

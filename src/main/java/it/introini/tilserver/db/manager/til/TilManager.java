@@ -32,7 +32,7 @@ public class TilManager {
 
     public Try<Collection<Til>> all(){
         PreparedStatement statement = databaseManager.sql("select * from til order by datetime desc");
-        return Try.of(statement::executeQuery).mapTry(rs -> databaseManager.map(rs, tilMapper));
+        return Try.of(statement::executeQuery).mapTry(rs -> databaseManager.mapMany(rs, tilMapper));
     }
 
     public Try<Til> insert(Instant timestamp, String content){
@@ -43,6 +43,15 @@ public class TilManager {
             statement.execute();
             return statement.getGeneratedKeys();
         }).mapTry(rs -> Til.of(rs.getLong(1),timestamp,content));
+    }
+
+    public Try<Til> til(long id){
+        PreparedStatement statement = databaseManager.sql("select * from til where id = ?");
+        return Try.of(() -> {
+            statement.setLong(1, id);
+            return statement.executeQuery();
+        }).mapTry(rs -> databaseManager.map(rs, tilMapper));
+
     }
 
 }

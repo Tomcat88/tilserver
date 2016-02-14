@@ -3,10 +3,7 @@ package it.introini.tilserver.db;
 import javaslang.control.Try;
 import org.flywaydb.core.Flyway;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Function;
@@ -39,12 +36,17 @@ public class DatabaseManager {
         return Try.of(() -> connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS)).getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
     }
 
-    public <T>Collection<T> map(ResultSet resultSet,Function<ResultSet,Try<T>> mapper) throws Throwable {
+    public <T>Collection<T> mapMany(ResultSet resultSet, Function<ResultSet,Try<T>> mapper) throws Throwable {
         Collection<T> ret = new ArrayList<>();
         while (resultSet.next()){
             ret.add(mapper.apply(resultSet).getOrElseThrow(Function.identity()));
         }
         return ret;
+    }
+
+    public <T>T map(ResultSet resultSet,Function<ResultSet,Try<T>> mapper) throws Throwable {
+        resultSet.next();
+        return mapper.apply(resultSet).getOrElseThrow(Function.identity());
     }
 
 }

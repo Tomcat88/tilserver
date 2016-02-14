@@ -1,0 +1,16 @@
+{{<base}}
+    {{$title}} Til {{til.id}} {{/title}}
+{{$content}}
+<h3 class="title">Til {{til.id}}</h3>
+<div class="til">
+        <p>
+            <b>
+                {{#format}}
+                    {{til.timestamp}}
+                {{/format}}
+            </b>
+        </p>
+        <p>{{til.content}}</p>
+</div>
+{{/content}}
+{{/base}}

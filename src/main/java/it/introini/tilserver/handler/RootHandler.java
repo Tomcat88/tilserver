@@ -34,11 +34,7 @@ public class RootHandler implements TemplateViewRoute{
             ttils.getCause().printStackTrace();
             return ViewUtils.e("error while loading tils!",Routes.rootTuple._1);
         }else {
-            Collection<Til> tils = ttils.get();
-
-            return ViewUtils.mv(ImmutableMap.of("tils",tils,
-                                                "format", (Function<String,String>) Utils::reformatDateTime),
-                                Routes.rootTuple._2);
+            return ViewUtils.mv(ImmutableMap.of("tils",ttils.get()), Routes.rootTuple._2);
         }
     }
 }
