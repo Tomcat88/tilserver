@@ -71,4 +71,3 @@ crashlytics.properties
 crashlytics-build.properties
 
 *.db
-resources/
