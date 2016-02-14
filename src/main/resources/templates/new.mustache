@@ -1,11 +1,12 @@
-<html>
-    <body>
-        <div class="new">
+{{<base}}
+{{$title}} New til {{/title}}
+{{$content}}
+        <div class="til">
             <form method="post">
-                <label for="content">Til: </label><br/>
-                <textarea name="content" cols="30" rows="10"></textarea><br/>
+                <label for="content"><b>Til:</b></label><br/>
+                <textarea name="content" rows="15"></textarea><br/>
                 <input type="submit" value="Submit">
             </form>
         </div>
-    </body>
-</html>
+{{/content}}
+{{/base}}

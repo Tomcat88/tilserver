@@ -4,12 +4,17 @@ import com.google.common.collect.ImmutableMap;
 import it.introini.tilserver.db.manager.til.Til;
 import it.introini.tilserver.db.manager.til.TilManager;
 import it.introini.tilserver.route.Routes;
+import it.introini.tilserver.util.Utils;
 import it.introini.tilserver.util.ViewUtils;
 import javaslang.control.Try;
-import spark.*;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
+import spark.TemplateViewRoute;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.function.Function;
 import java.util.logging.Logger;
 
 /**
@@ -21,6 +26,7 @@ public class RootHandler implements TemplateViewRoute{
     @Inject
     TilManager tilManager;
 
+
     @Override
     public ModelAndView handle(Request request, Response response) throws Exception {
         Try<Collection<Til>> ttils = tilManager.all();
@@ -29,7 +35,10 @@ public class RootHandler implements TemplateViewRoute{
             return ViewUtils.e("error while loading tils!");
         }else {
             Collection<Til> tils = ttils.get();
-            return ViewUtils.mv(ImmutableMap.of("tils",tils), Routes.rootTuple._2);
+
+            return ViewUtils.mv(ImmutableMap.of("tils",tils,
+                                                "format", (Function<String,String>) Utils::reformatDateTime),
+                                Routes.rootTuple._2);
         }
     }
 }

@@ -1,10 +1,18 @@
-<html>
-<body>
-<h3>Thomas Tils:</h3>
-<div>
+{{<base}}
+
+{{$title}} Thomas tils {{/title}}
+
+{{$content}}
+<h3 class="title">Thomas Tils</h3>
     {{#tils}}
-        <div>
-            <p>{{timestamp}}</p>
+        <div class="til">
+            <p>
+                <b>
+                    {{#format}}
+                        {{timestamp}}
+                    {{/format}}
+                </b>
+            </p>
             <p>{{content}}</p>
         </div>
     {{/tils}}
@@ -13,6 +21,6 @@
             No tils available!
         </div>
     {{/tils}}
-</div>
-</body>
-</html>
+{{/content}}
+
+{{/base}}

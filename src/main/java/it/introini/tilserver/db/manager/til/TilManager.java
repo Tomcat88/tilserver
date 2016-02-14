@@ -31,7 +31,7 @@ public class TilManager {
 
 
     public Try<Collection<Til>> all(){
-        PreparedStatement statement = databaseManager.sql("select * from til");
+        PreparedStatement statement = databaseManager.sql("select * from til order by datetime desc");
         return Try.of(statement::executeQuery).mapTry(rs -> databaseManager.map(rs, tilMapper));
     }
 

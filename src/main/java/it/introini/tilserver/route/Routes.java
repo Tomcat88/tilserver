@@ -4,6 +4,7 @@ import it.introini.tilserver.handler.NewHandler;
 import it.introini.tilserver.handler.RootHandler;
 import javaslang.Tuple;
 import javaslang.Tuple2;
+import spark.TemplateEngine;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.inject.Inject;
@@ -22,10 +23,12 @@ public class Routes {
     @Inject RootHandler  rootHandler;
     @Inject NewHandler   newHandler;
 
-    public void initRoutes(){
-        get(rootTuple._1,rootHandler,new MustacheTemplateEngine());
+    private final TemplateEngine templateEngine = new MustacheTemplateEngine();
 
-        get(newTuple._1,newHandler,new MustacheTemplateEngine());
-        post(newTuple._1,newHandler,new MustacheTemplateEngine());
+    public void initRoutes(){
+        get(rootTuple._1,rootHandler,templateEngine);
+
+        get(newTuple._1,newHandler,templateEngine);
+        post(newTuple._1,newHandler,templateEngine);
     }
 }
