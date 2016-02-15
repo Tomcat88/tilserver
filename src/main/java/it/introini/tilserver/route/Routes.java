@@ -1,9 +1,6 @@
 package it.introini.tilserver.route;
 
-import it.introini.tilserver.handler.DeleteHandler;
-import it.introini.tilserver.handler.NewHandler;
-import it.introini.tilserver.handler.RootHandler;
-import it.introini.tilserver.handler.TilHandler;
+import it.introini.tilserver.handler.*;
 import javaslang.Tuple;
 import javaslang.Tuple2;
 import spark.TemplateEngine;
@@ -21,6 +18,7 @@ public class Routes {
     public static final Tuple2<String,String> rootTuple   = Tuple.of("/","root.mustache");
     public static final Tuple2<String,String> newTuple    = Tuple.of("/new","new.mustache");
     public static final Tuple2<String,String> tilTuple    = Tuple.of("/til/:id","til.mustache");
+    public static final Tuple2<String,String> loginTuple  = Tuple.of("/login","login.mustache");
     public static final String deleteRoute                = "/delete/:id";
     public static final String errView                    = "err.mustache";
 
@@ -28,6 +26,7 @@ public class Routes {
     @Inject NewHandler    newHandler;
     @Inject TilHandler    tilHandler;
     @Inject DeleteHandler deleteHandler;
+    @Inject LoginHandler  loginHandler;
 
     private final TemplateEngine templateEngine = new MustacheTemplateEngine();
 
@@ -40,5 +39,8 @@ public class Routes {
         get(tilTuple._1,tilHandler,templateEngine);
 
         get(deleteRoute,deleteHandler,templateEngine);
+
+        get(loginTuple._1,loginHandler,templateEngine);
+        post(loginTuple._1,loginHandler,templateEngine);
     }
 }

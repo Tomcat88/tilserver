@@ -48,3 +48,20 @@
 textarea{
     width: 100%;
 }
+
+.login-field{
+    width: 80%;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+.login-field>label{
+    display: inline-block;
+
+}
+
+.login-field>input{
+    display: inline-block;
+    clear: left;
+    float: right;
+}
