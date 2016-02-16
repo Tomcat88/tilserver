@@ -11,7 +11,6 @@ import org.apache.commons.codec.binary.Hex;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.Session;
 import spark.route.HttpMethod;
 
 import javax.inject.Inject;
@@ -45,7 +44,7 @@ public class LoginHandler extends AbstractHandler{
         }
     }
     public ModelAndView get(Request request,Response response){
-        return ViewUtils.v(Routes.loginTuple._2);
+        return ViewUtils.mv(modelBuilder(request).build(),Routes.loginTuple._2);
     }
     public ModelAndView post(Request request,Response response){
         Option<String> maybeLogin    = stringParam(request, LOGIN_PARAM);

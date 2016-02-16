@@ -1,5 +1,6 @@
 package it.introini.tilserver.db.manager;
 
+import com.google.common.collect.ImmutableMap;
 import it.introini.tilserver.db.manager.user.User;
 import javaslang.control.Option;
 import spark.Request;
@@ -27,9 +28,22 @@ public class SessionManager {
                      .getOrElse(false);
     }
 
+    public String user(Request request){
+        return Option.of(request.session().attribute(USER_ATTR))
+                     .map(Object::toString)
+                     .getOrElse("");
+    }
+
     public void logout(Request request){
         request.session().removeAttribute(AUTH_ATTR);
         request.session().removeAttribute(USER_ATTR);
+    }
+
+    public ImmutableMap.Builder<String,Object> sessionMapBuilder(Request request){
+        ImmutableMap.Builder<String ,Object> builder = ImmutableMap.builder();
+        builder.put(AUTH_ATTR, isAuth(request))
+               .put(USER_ATTR, user(request));
+        return builder;
     }
 
 }

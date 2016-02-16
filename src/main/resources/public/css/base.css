@@ -10,7 +10,7 @@
     content: "";
 }
 .navbar>li::before{
-    content: "|";
+    content: "| ";
 }
 
 .margin-top-0{

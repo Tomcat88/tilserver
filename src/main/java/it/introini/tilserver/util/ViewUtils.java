@@ -1,7 +1,9 @@
 package it.introini.tilserver.util;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import it.introini.tilserver.route.Routes;
+import org.apache.commons.lang3.text.WordUtils;
 import spark.ModelAndView;
 
 import java.util.Collections;
@@ -28,7 +30,8 @@ public class ViewUtils {
     private static Map<String ,Object> addHelper(ImmutableMap<String ,Object> model){
         ImmutableMap.Builder<String , Object> builder = ImmutableMap.builder();
         builder.putAll(model)
-               .put("format",(Function<String ,Object>)Utils::reformatDateTime);
+               .put("format",(Function<String ,Object>)Utils::reformatDateTime)
+               .put("capitalize",(Function<String ,Object>) WordUtils::capitalize);
         return builder.build();
     }
 }

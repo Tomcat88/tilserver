@@ -1,6 +1,5 @@
 package it.introini.tilserver.handler;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.primitives.Longs;
 import it.introini.tilserver.db.manager.til.TilManager;
 import it.introini.tilserver.route.Routes;
@@ -9,14 +8,13 @@ import javaslang.control.Option;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.TemplateViewRoute;
 
 import javax.inject.Inject;
 
 /**
  * Created by thomas on 14/02/16.
  */
-public class TilHandler implements TemplateViewRoute {
+public class TilHandler extends AbstractHandler{
 
     @Inject TilManager tilManager;
 
@@ -28,7 +26,7 @@ public class TilHandler implements TemplateViewRoute {
         }else {
             return maybeId.map(tilManager::til)
                           .get()
-                          .map(t -> ViewUtils.mv(ImmutableMap.of("til",t),Routes.tilTuple._2))
+                          .map(t -> ViewUtils.mv(build(request,"til",t),Routes.tilTuple._2))
                           .getOrElseGet(throwable -> {
                               throwable.printStackTrace();
                               return ViewUtils.e("til not found.",Routes.rootTuple._1);
