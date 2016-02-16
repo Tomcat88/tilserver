@@ -16,6 +16,7 @@ public class SparkInitializer {
 
     public void init(){
         Spark.staticFileLocation(STATIC_FOLDER);
+        routes.initFilter();
         routes.initRoutes();
     }
 

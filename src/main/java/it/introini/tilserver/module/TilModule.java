@@ -4,6 +4,7 @@ import dagger.Module;
 import dagger.Provides;
 import it.introini.tilserver.app.Application;
 import it.introini.tilserver.db.DatabaseManager;
+import it.introini.tilserver.db.manager.SessionManager;
 import it.introini.tilserver.db.manager.til.TilManager;
 import it.introini.tilserver.handler.RootHandler;
 
@@ -24,5 +25,9 @@ public class TilModule {
     public DatabaseManager databaseManager(){
         return new DatabaseManager();
     }
+
+    @Provides
+    @Singleton
+    public SessionManager sessionManager(){ return new SessionManager(); }
 
 }

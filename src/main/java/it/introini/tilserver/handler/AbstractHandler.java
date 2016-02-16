@@ -11,6 +11,6 @@ import spark.TemplateViewRoute;
 public abstract class AbstractHandler implements TemplateViewRoute{
 
     protected Option<String> stringParam(Request request,String param){
-        return List.of(request.queryParamsValues(param)).headOption().filter(p -> !p.isEmpty());
+        return Option.of(request.queryParamsValues(param)).map(List::of).map(List::head).filter(p -> !p.isEmpty());
     }
 }

@@ -31,6 +31,7 @@ dependencies {
     compile 'com.javaslang:javaslang:2.0.0-RC4'
     compile 'com.squareup.dagger:dagger:1.2.2'
     compile 'com.squareup.dagger:dagger-compiler:1.2.2'
+    compile 'commons-codec:commons-codec:1.10'
 }
 
 
