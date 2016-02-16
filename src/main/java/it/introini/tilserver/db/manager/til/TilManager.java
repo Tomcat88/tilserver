@@ -1,6 +1,7 @@
 package it.introini.tilserver.db.manager.til;
 
 import it.introini.tilserver.db.DatabaseManager;
+import it.introini.tilserver.db.RowMapper;
 import javaslang.control.Try;
 
 import javax.inject.Inject;
@@ -22,7 +23,7 @@ public class TilManager {
     @Inject
     DatabaseManager databaseManager;
 
-    private final Function<ResultSet,Try<Til>> tilMapper =
+    private final RowMapper<Til> tilMapper =
             resultSet ->
                 Try.of(() ->
                     Til.of( resultSet.getLong(1),

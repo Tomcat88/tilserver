@@ -36,7 +36,7 @@ public class DatabaseManager {
         return Try.of(() -> connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS)).getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
     }
 
-    public <T>Collection<T> mapMany(ResultSet resultSet, Function<ResultSet,Try<T>> mapper) throws Throwable {
+    public <T>Collection<T> mapMany(ResultSet resultSet, RowMapper<T> mapper) throws Throwable {
         Collection<T> ret = new ArrayList<>();
         while (resultSet.next()){
             ret.add(mapper.apply(resultSet).getOrElseThrow(Function.identity()));
@@ -44,7 +44,7 @@ public class DatabaseManager {
         return ret;
     }
 
-    public <T>T map(ResultSet resultSet,Function<ResultSet,Try<T>> mapper) throws Throwable {
+    public <T>T map(ResultSet resultSet,RowMapper<T> mapper) throws Throwable {
         resultSet.next();
         return mapper.apply(resultSet).getOrElseThrow(Function.identity());
     }
